@@ -1,0 +1,7 @@
+<p-tabView *ngIf="filters?.length" [scrollable]="true" [(activeIndex)]="activeIndex" styleClass="shadow-none" (onChange)="applyMainFilters()">
+    <p-tabPanel [header]="button.filter" *ngFor="let button of filters; let i = index;" headerStyleClass="shadow-none text-sm flex-wrap">
+        <p-toggleButton *ngFor="let subFilter of button.subFilters"
+            styleClass="p-button-outlined border-gray-400 p-button-rounded p-button-sm shadow-none mx-1"
+            [onLabel]="subFilter" [offLabel]="subFilter" (onChange)="applySubFilters($event.checked, subFilter)"></p-toggleButton>
+    </p-tabPanel>
+</p-tabView>

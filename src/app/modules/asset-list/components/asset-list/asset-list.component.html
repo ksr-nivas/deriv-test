@@ -1,0 +1,42 @@
+<div class="asset-list grid p-4 justify-content-center">
+    <div class="sm:col-12 md:col-10" *ngIf="tableData.length">
+        <span class="font-bold">Filters:</span>
+        <table-filters [filters]="filters" 
+                        (onMainFilterChnage)="applyMainFilters($event)" 
+                        (onSubFilterChnage)="handleSubFilterChange($event)">
+        </table-filters>
+    </div>
+    <div class="list sm:col-12 md:col-10 mb-2">
+        <p-progressSpinner *ngIf="!tableData.length" styleClass="flex align-self-center">
+        </p-progressSpinner>
+        <p-table *ngIf="tableData.length" [columns]="tableColumns" [value]="tableData" [responsive]="true" responsiveLayout="stack" [scrollable]="true"
+            scrollHeight="550px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let column of tableColumns; trackBy: trackByMethod" [pSortableColumn]="column.field">
+                        {{column.header}} <p-sortIcon *ngIf="column.header" [field]="column.field"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of tableColumns">
+                        <span *ngIf="col.field !== 'chart'">
+                            {{rowData[col.field]}}
+                        </span>
+                        <p-chart *ngIf="col.field === 'chart'" type="line" [data]="rowData.chartData" 
+                                [options]="chartOptions" width="200px" height="80px"></p-chart>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <tr>
+                    <td>
+                        Rows: {{tableData.length}} / {{originalData.length}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>

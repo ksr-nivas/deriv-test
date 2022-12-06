@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  DATA_URL: 'wss://ws.binaryws.com/websockets/v3?app_id=34247',
+  DERIV_TOKEN: 'lOY23kdAvr1XTt4'
 };
 
 /*
